@@ -18,6 +18,7 @@ class Event extends Model
         'event_type_id',
         'location_id',
         'created_by',
+        'max_capacity'
     ];
 
     protected $casts = [
@@ -49,7 +50,7 @@ class Event extends Model
     {
         return $query->where('event_type_id', $typeId);
     }
-    
+
     public function type()
     {
         return $this->belongsTo(EventType::class, 'event_type_id');
@@ -78,5 +79,10 @@ class Event extends Model
     public function attendees()
     {
         return $this->belongsToMany(User::class, 'reservations');
+    }
+
+    public function confirmedReservationsCount(): int
+    {
+        return $this->reservations()->where('status', 'confirmed')->count();
     }
 }

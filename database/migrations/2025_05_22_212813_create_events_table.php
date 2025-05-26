@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('event_type_id')->constrained()->onDelete('cascade');
             $table->foreignId('location_id')->constrained()->onDelete('cascade');
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+            $table->unsignedInteger('max_capacity');
             $table->timestamps();
         });
     }

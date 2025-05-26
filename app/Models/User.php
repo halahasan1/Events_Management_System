@@ -48,13 +48,6 @@ class User extends Authenticatable
         ];
     }
 
-    public function scopeWithRole($query, $role)
-    {
-        return $query->whereHas('roles', function ($q) use ($role) {
-            $q->where('name', $role);
-        });
-    }
-
 
     public function events()
     {

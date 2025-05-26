@@ -1,61 +1,112 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+#  Events Management API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A robust Laravel RESTful API for managing events, reservations, users, and media. Built with scalability, modularity, and clean code architecture in mind.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+##  Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Event creation, updating, deletion
+- Location and Event Type management
+- Reservation handling
+- User-based access control and permissions
+- Image uploading (via polymorphic relationships)
+- Modular Service & Resource layers
+- Clean error logging & transaction safety
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+##  Requirements
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **PHP >= 8.1**
+- **Laravel >= 10.x**
+- **MySQL or MariaDB**
+- **Composer**
+- **Node.js + npm (for front-end assets, optional)**
+- **Postman (for testing APIs)**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| Table Name                   | Description                                 |
+| ---------------------------- | ------------------------------------------- |
+| **users**                    | Stores user credentials and roles           |
+| **events**                   | Event details (title, time, type, location) |
+| **event\_types**             | Lookup table for event categories           |
+| **locations**                | Event location details                      |
+| **images**                   | Polymorphic images for events/locations     |
+| **reservations**             | Stores event attendance reservations        |
+| **password\_resets**         | Laravel's default password reset            |
+| **personal\_access\_tokens** | Sanctum tokens                              |
+| **roles**                    | User roles for permission system            |
+| **permissions**              | Specific access permissions                 |
+| **model\_has\_roles**        | Role assignments                            |
+| **role\_has\_permissions**   | Role/permission mapping                     |
 
-## Laravel Sponsors
+##  Setup Instructions
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 1. Clone the Repository
 
-### Premium Partners
+```bash
+git clone https://github.com/halahasan1/Events_Management_System.git
+cd events-api
+````
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 2. Install Dependencies
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 3. Copy & Configure Environment
 
-## Code of Conduct
+```bash
+cp .env.example .env
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Edit `.env` with your database and mail credentials:
 
-## Security Vulnerabilities
+```
+DB_DATABASE=your_db
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Then generate app key:
 
-## License
+```bash
+php artisan key:generate
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 4. Run Migrations & Seeders
+
+```bash
+php artisan migrate --seed
+```
+
+### 5. Storage Linking (for Images)
+
+```bash
+php artisan storage:link
+```
+
+### 6. Serve the Application
+
+```bash
+php artisan serve
+```
+
+## Postman API Collection
+
+To test all endpoints, import this Postman collection:
+
+👉 **[Postman Collection Link](https://www.postman.com/research-geoscientist-78470583/workspace/my-workspace/collection/39063412-e3893aa1-ba58-4a61-8d50-e3a0d0aac684?action=share&creator=39063412)**
+
+It includes:
+
+* Auth (login/register)
+* Event CRUD
+* Location CRUD
+* Reservation CRUD
+* Event Types CRUD
+* Users (list/delete)
+

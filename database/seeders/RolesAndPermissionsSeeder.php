@@ -10,30 +10,40 @@ class RolesAndPermissionsSeeder extends Seeder
 {
     public function run(): void
     {
-        
-        // Define permissions
         $permissions = [
+            'manage event_types',
+
+            'manage locations',
+
+            'view users',
+            'delete users',
+
             'create events',
             'edit events',
             'delete events',
             'view events',
-            'manage users',
+
             'create reservations',
+            'edit reservations',
+            'view reservations',
+            'delete reservations',
         ];
 
-        // Create permissions
         foreach ($permissions as $permission) {
             Permission::firstOrCreate(['name' => $permission]);
         }
 
-        // Define roles and assign permissions
         $roles = [
-            'admin' => Permission::all(), // all permissions
+            'admin' => Permission::all(),
             'organizer' => [
                 'create events',
                 'edit events',
                 'delete events',
                 'view events',
+            ],
+            'reservation manager' => [
+                'edit reservations',
+                'view reservations',
             ],
             'user' => [
                 'view events',
@@ -43,12 +53,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         foreach ($roles as $roleName => $perms) {
             $role = Role::firstOrCreate(['name' => $roleName]);
-
-            if ($perms instanceof \Illuminate\Support\Collection) {
-                $role->syncPermissions($perms);
-            } else {
-                $role->syncPermissions($perms);
-            }
+            $role->syncPermissions($perms);
         }
     }
 }

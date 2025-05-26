@@ -12,7 +12,7 @@ class EventType extends Model
 
     protected $fillable = ['name'];
 
-    //If you want to show URLs like /events/concert
+    //f you want to show URLs like /events/concert
     public function getSlugAttribute()
     {
         return Str::slug($this->name);

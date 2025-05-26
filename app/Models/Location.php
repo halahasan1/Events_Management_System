@@ -10,9 +10,30 @@ class Location extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'address'];
+    protected $fillable = [
+        'name',
+        'address',
+        'city',
+        'country',
+    ];
 
     protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => ucwords($value),
+            set: fn ($value) => strtolower($value)
+        );
+    }
+
+    protected function city(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => ucwords($value),
+            set: fn ($value) => strtolower($value)
+        );
+    }
+
+    protected function country(): Attribute
     {
         return Attribute::make(
             get: fn ($value) => ucwords($value),
@@ -29,4 +50,5 @@ class Location extends Model
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
-    }}
+    }
+}
